@@ -1,0 +1,9 @@
+/* CSS */
+html,body, #mapContainer {
+  font-family:sans-serif;
+  background:#fff;
+  color:#444;
+  height:100%;
+  padding:0;
+  margin:0;
+}

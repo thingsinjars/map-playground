@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jHERE Playground</title>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="codemirror/lib/codemirror.css">
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link rel="icon" href="http://jhere.net/favicon.ico">
+<script src="codemirror/lib/codemirror.js"></script>
+<script src="codemirror/mode/javascript/javascript.js"></script>
+<script src="codemirror/mode/css/css.js"></script>
+<script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+</head>
+<body class="show-other">
+	<div id="title"><a href="http://jhere.net" id="logo">jHere</a> <span id="by">by <a href="http://twitter.com/thingsinjars">@thingsinjars</a></span>
+		<ul>
+			<li><a href="" id="show-other"><span class="show">Show</span><span class="hide">Hide</span> HTML &amp; CSS</a></li>
+			<li><a href="" id="view-gist" target="_blank">View Gist</a></li>
+			<li><a href="" id="save-to-gist">Save to Gist</a></li>
+		</ul>
+		<ul id="single-panel">
+			<li><a href="#js" id="js-toggle">JS</a></li>
+			<li><a href="#css" id="css-toggle">CSS</a></li>
+			<li><a href="#html" id="html-toggle">HTML</a></li>
+			<li><a href="#output" id="map-toggle">MAP</a></li>
+		</ul>
+	</div>
+<div id="edit">
+<div id="js" class="panel">
+	<textarea id="js-area" lang="javascript">{{JAVASCRIPT}}</textarea>
+</div>
+<div id="other" class="panel">
+	<div id="html">
+		<textarea id="html-area" lang="html">{{HTML}}</textarea>
+	</div>
+	<div id="css">
+		<textarea id="css-area" lang="css">{{CSS}}</textarea>
+	</div>
+</div>
+<div id="output" class="panel">
+	<iframe></iframe>
+</div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/mapp.js"></script>
+</body>
+</html>

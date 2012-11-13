@@ -1,4 +1,4 @@
-map-playground
-==============
+jHERE Playground
+===
 
-Map Playground for jHERE
+A simple interactive playground to let you make maps easily using jHERE.
