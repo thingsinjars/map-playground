@@ -84,7 +84,10 @@ html, body {
 #save-to-gist {
 	width: 115px;
 	right:30px;
-	background: url(../img/save-to-gist.png) 0 0 no-repeat;
+}
+#download {
+	width:100px;
+	right:170px;
 }
 #title ul li a#view-gist {
 	width: 115px;
@@ -159,6 +162,8 @@ iframe {
 }
 
 @media screen and (max-width:1010px) {
+	#title #download {display: none;}
+
 	#title, #edit {
 		min-width:0;
 	}

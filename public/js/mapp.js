@@ -26,7 +26,7 @@ $('textarea').each(function() {
 	});
 });
 
-var updateTextAreas = function(CM) {
+var updateTextAreas = function() {
 		MAPP.editors.html.save();
 		MAPP.editors.javascript.save();
 		MAPP.editors.css.save();
@@ -43,9 +43,9 @@ var insertHtml = function() {
 	var outputHtml = MAPP.editors.html.getTextArea().value,
 		outputCss = MAPP.editors.css.getTextArea().value,
 		outputScript = MAPP.editors.javascript.getTextArea().value,
-		outputFrame = $('iframe');
+		outputFrame = $('#output iframe');
 
-	$('#output').empty().append(outputFrame);
+	$('#output').append(outputFrame);
 
 	outputFrame.inject(outputHtml.replace('</body>', '<script>'+outputScript+'</script></body>'));
 	MAPP.contents = outputFrame.contents();
@@ -81,6 +81,22 @@ $('#save-to-gist').on('click', function(e) {
 	$.post("/save", data, function(data, textStatus) {
 		window.location = '/' + data.id;
 	});
+});
+
+$('#download').on('click', function(e) {
+	e.preventDefault();
+	updateTextAreas();
+	var f = $('<form action="download" method="post" target="download_target">');
+
+	if($('#download_target').length === 0) {
+		var d = $('<iframe id="download_target">').appendTo('body');
+	}
+
+	$('<input name="html">').val(MAPP.editors.html.getTextArea().value).appendTo(f);
+	$('<input name="js">').val(MAPP.editors.javascript.getTextArea().value).appendTo(f);
+	$('<input name="css">').val(MAPP.editors.css.getTextArea().value).appendTo(f);
+
+	f.submit();
 });
 
 $('#single-panel a').on('click', function(e) {

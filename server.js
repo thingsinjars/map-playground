@@ -56,6 +56,20 @@ app.post('/save', function(req, res) {
   });
 });
 
+// Request to create a new gist
+app.post('/download', function(req, res) {
+
+  //Get the data out of the request
+  var data = {
+    "html": req.body.html,
+    "js": req.body.js,
+    "css": req.body.css
+  };
+
+  downloadMap(req, res, data);
+
+});
+
 // Start the app listening
 app.listen(3000);
 
@@ -81,6 +95,18 @@ function loadDefault(req, res, callback) {
       });
     });
   });
+}
+
+function downloadMap(req, res, data) {
+  var html = data.html;
+  html = html.replace('</body>', '<script>'+data.js+'</script></body>');
+  html = html.replace('</head>', '<style>'+data.css+'</style></head>');
+  res.writeHeader(200, {
+      "Content-Type": "text/html",
+      "Content-Disposition": "attachment; filename=\"jhere-playground.html\""
+  });
+  res.write(html);
+  res.end();
 }
 
 // Render the supplied data into the editor template
