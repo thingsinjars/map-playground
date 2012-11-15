@@ -10,6 +10,7 @@
 <script src="codemirror/lib/codemirror.js"></script>
 <script src="codemirror/mode/javascript/javascript.js"></script>
 <script src="codemirror/mode/css/css.js"></script>
+<script src="codemirror/mode/xml/xml.js"></script>
 <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
 </head>
 <body class="show-other">
@@ -28,18 +29,18 @@
 		</ul>
 	</div>
 <div id="edit">
-<div id="js" class="panel">
+<div id="js" class="panel" class="code-tab">
 	<textarea id="js-area" lang="javascript">{{JAVASCRIPT}}</textarea>
 </div>
-<div id="other" class="panel">
-	<div id="html">
-		<textarea id="html-area" lang="html">{{HTML}}</textarea>
+<div id="other" class="panel code-tab">
+	<div id="html" class="code-tab">
+		<textarea id="html-area" lang="htmlmixed">{{HTML}}</textarea>
 	</div>
-	<div id="css">
+	<div id="css" class="code-tab">
 		<textarea id="css-area" lang="css">{{CSS}}</textarea>
 	</div>
 </div>
-<div id="output" class="panel">
+<div id="output" class="panel code-tab">
 	<iframe></iframe>
 </div>
 </div>

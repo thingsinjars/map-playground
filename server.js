@@ -1,7 +1,7 @@
 // Maps Playground
 // ===
 //
-// using jHere
+// using [jHere](http://jhere.net/)
 //
 // (c) 2012 Simon Madine
 //
@@ -97,6 +97,8 @@ function loadDefault(req, res, callback) {
   });
 }
 
+// Combine the HTML, CSS and JS into a single
+// file then serve it for download
 function downloadMap(req, res, data) {
   var html = data.html;
   html = html.replace('</body>', '<script>'+data.js+'</script></body>');

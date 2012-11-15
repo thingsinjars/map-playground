@@ -2,16 +2,7 @@ var MAPP = {
 	editors: {}
 };
 
-$.fn.inject = function(content) {
-	return $(this).filter("iframe").each(function() {
-		var doc = this.contentDocument || this.document || this.contentWindow.document;
-		doc.open();
-		doc.writeln(content);
-		doc.close();
-	});
-}
-
-
+// Initialise CodeMirror on each of the textareas
 $('textarea').each(function() {
 	var mode = $(this).attr('lang');
 	MAPP.editors[mode] = CodeMirror.fromTextArea(this, {
@@ -26,55 +17,82 @@ $('textarea').each(function() {
 	});
 });
 
-var updateTextAreas = function() {
-		MAPP.editors.html.save();
-		MAPP.editors.javascript.save();
-		MAPP.editors.css.save();
-	};
+// Copy the editors into the hidden textareas
 
-var timedRefresh = function() {
+
+function updateTextAreas() {
+	MAPP.editors.htmlmixed.save();
+	MAPP.editors.javascript.save();
+	MAPP.editors.css.save();
+}
+
+// The refresh is delayed so that if you're typing fast
+// it doesn't update too often.
+
+
+function timedRefresh() {
 	if(!MAPP.refreshTimer) {
 		MAPP.refreshTimer = setTimeout(insertHtml, 300);
 	}
+}
+
+// A really handy plugin by Michael Mahemoff
+// http://mini.softwareas.com/jquery-iframe-inject-mini-plugin
+$.fn.inject = function(content) {
+	return $(this).filter("iframe").each(function() {
+		var doc = this.contentDocument || this.document || this.contentWindow.document;
+		doc.open();
+		doc.writeln(content);
+		doc.close();
+	});
 };
 
-var insertHtml = function() {
+// Combine the HTML, CSS and JS into a single file
+// to display in the output frame
+
+
+function insertHtml() {
 	MAPP.refreshTimer = false;
-	var outputHtml = MAPP.editors.html.getTextArea().value,
+	var outputHtml = MAPP.editors.htmlmixed.getTextArea().value,
 		outputCss = MAPP.editors.css.getTextArea().value,
 		outputScript = MAPP.editors.javascript.getTextArea().value,
 		outputFrame = $('#output iframe');
 
 	$('#output').append(outputFrame);
 
-	outputFrame.inject(outputHtml.replace('</body>', '<script>'+outputScript+'</script></body>'));
+	outputFrame.inject(outputHtml.replace('</body>', '<script>' + outputScript + '</script></body>'));
 	MAPP.contents = outputFrame.contents();
 
 	MAPP.styleTag = $('<style/>').attr('id', 'our_css').appendTo(MAPP.contents.find('head'));
 	MAPP.styleTag.text(MAPP.editors.css.getTextArea().value);
-};
+}
 
-
+// Initialise the page.
 (function() {
 	updateTextAreas();
 	timedRefresh();
+
+	// If we're showing an unmodified gist on load, show the 'View' button
 	if(/\/\d+/.test(window.location.pathname)) {
-		$('#view-gist').attr('href', 'https://gist.github.com/'+window.location.pathname.match(/\d+/)).show();
+		$('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/\d+/)).show();
 		$('#save-to-gist').hide();
 	}
 })();
 
+// Toggle visibility of the HTML/CSS tabs.
 $('#show-other').on('click', function(e) {
 	e.preventDefault();
 	$('body').toggleClass('show-other');
 });
 
+// Send the content of the editors to the server to
+// save to GitHub
 $('#save-to-gist').on('click', function(e) {
 	$('<div>').addClass('loader').appendTo('body');
 	e.preventDefault();
 	updateTextAreas();
 	var data = {
-		"html": MAPP.editors.html.getTextArea().value,
+		"html": MAPP.editors.htmlmixed.getTextArea().value,
 		"js": MAPP.editors.javascript.getTextArea().value,
 		"css": MAPP.editors.css.getTextArea().value
 	};
@@ -83,6 +101,8 @@ $('#save-to-gist').on('click', function(e) {
 	});
 });
 
+// Copy the editors into a form and submit it to an iframe
+// which will generate the downloadable file
 $('#download').on('click', function(e) {
 	e.preventDefault();
 	updateTextAreas();
@@ -92,38 +112,30 @@ $('#download').on('click', function(e) {
 		var d = $('<iframe id="download_target">').appendTo('body');
 	}
 
-	$('<input name="html">').val(MAPP.editors.html.getTextArea().value).appendTo(f);
+	$('<input name="html">').val(MAPP.editors.htmlmixed.getTextArea().value).appendTo(f);
 	$('<input name="js">').val(MAPP.editors.javascript.getTextArea().value).appendTo(f);
 	$('<input name="css">').val(MAPP.editors.css.getTextArea().value).appendTo(f);
 
 	f.submit();
 });
 
-$('#single-panel a').on('click', function(e) {
-	e.preventDefault();
-	$target = $(this).attr('href');
-	$('#html').hide();
-	$('#css').hide();
-	$('#other').hide();
-	$('#output').hide();
-	$('#js').hide();
-	$($target).show();
-	if(($target === "#css") || ($target === "#html")) {
-		$('#other').show();
-	}
-});
+// Switch between full and compact (tabbed) mode
 $(window).on('resize', function() {
 	if($(window).width() >= 1010) {
-		$('#html').show();
-		$('#css').show();
-		$('#other').show();
-		$('#output').show();
-		$('#js').show();
+		$('.code-tab').show();
 	} else {
-		$('#html').hide();
-		$('#css').hide();
-		$('#other').hide();
-		$('#js').hide();
+		$('.code-tab').hide();
 		$('#output').show();
+	}
+});
+
+// Show/hide tabs when we're in compact mode
+$('#single-panel a').on('click', function(e) {
+	e.preventDefault();
+	target = $(this).attr('href');
+	$('.code-tab').hide();
+	$(target).show();
+	if((target === "#css") || (target === "#html")) {
+		$('#other').show();
 	}
 });
