@@ -15,6 +15,9 @@ Gist.getMap = function(id, fn) {
 
   // Set up the request
   request.get({url:options.url+options.path+'/' + id, qs: options.qs}, function(e, r, chunk){
+        if (e) {
+          fn(e);
+        }
         chunk = JSON.parse(chunk);
 
         var retrievedMap = {

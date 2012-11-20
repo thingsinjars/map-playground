@@ -28,6 +28,9 @@ app.get('/:key?', function(req, res) {
 
     // Load the gist and render the template
     gist.getMap(req.params.key, function(err, data) {
+      if(err) {
+        loadDefault(req, res, loadTemplate);
+      }
       loadTemplate(req, res, data);
     });
 
