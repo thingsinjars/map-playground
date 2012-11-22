@@ -29,7 +29,7 @@ app.get('/:key?', function(req, res) {
     // Load the gist and render the template
     gist.getMap(req.params.key, function(err, data) {
       if(err) {
-        loadDefault(req, res, loadTemplate);
+        return loadDefault(req, res, loadTemplate);
       }
       loadTemplate(req, res, data);
     });
@@ -80,15 +80,15 @@ app.listen(3000);
 function loadDefault(req, res, callback) {
   fs.readFile('./public/default/default.html', function(err, html) {
     if(err) {
-      throw err;
+      return err;
     }
     fs.readFile('./public/default/default.js', function(err, js) {
       if(err) {
-        throw err;
+        return err;
       }
       fs.readFile('./public/default/default.css', function(err, css) {
         if(err) {
-          throw err;
+          return err;
         }
         callback(req, res, {
           "html":html,
@@ -120,7 +120,7 @@ function downloadMap(req, res, data) {
 function loadTemplate(req, res, data) {
   fs.readFile('./index.html', 'utf-8', function(err, editor) {
     if(err) {
-      throw err;
+      return err;
     }
     editor = editor.replace('{{HTML}}', data.html);
     editor = editor.replace('{{JAVASCRIPT}}', data.js);
