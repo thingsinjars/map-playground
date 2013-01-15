@@ -10,8 +10,10 @@ $('textarea').each(function() {
 		mode: mode,
 		onChange: function() {
 			updateTextAreas();
-			$('#view-gist').hide();
-			$('#save-to-gist').show();
+			// $('#view-gist').hide();
+			$('body').removeClass('gist-viewable');
+			$('body').addClass('gist-saveable');
+			// $('#save-to-gist').show();
 			timedRefresh();
 		}
 	});
@@ -74,8 +76,11 @@ function insertHtml() {
 
 	// If we're showing an unmodified gist on load, show the 'View' button
 	if(/\/\d+/.test(window.location.pathname)) {
-		$('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/\d+/)).show();
-		$('#save-to-gist').hide();
+		$('body').addClass('gist-viewable');
+		$('body').removeClass('gist-saveable');
+		$('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/\d+/));
+		// $('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/\d+/)).show();
+		// $('#save-to-gist').hide();
 	}
 })();
 
@@ -112,9 +117,9 @@ $('#download').on('click', function(e) {
 		var d = $('<iframe id="download_target">').appendTo('body');
 	}
 
-	$('<input name="html">').val(MAPP.editors.htmlmixed.getTextArea().value).appendTo(f);
-	$('<input name="js">').val(MAPP.editors.javascript.getTextArea().value).appendTo(f);
-	$('<input name="css">').val(MAPP.editors.css.getTextArea().value).appendTo(f);
+	$('<input name="html">').val(MAPP.editors.htmlmixed.getTextArea().value.replace(/\n/g,'\\n')).appendTo(f);
+	$('<input name="js">').val(MAPP.editors.javascript.getTextArea().value.replace(/\n/g,'\\n')).appendTo(f);
+	$('<input name="css">').val(MAPP.editors.css.getTextArea().value.replace(/\n/g,'\\n')).appendTo(f);
 
 	f.submit();
 });

@@ -3,7 +3,7 @@ html, body {
 	height:100%;
 	font-family:"Oswald", sans-serif;
 }
-#title {
+.title {
 	min-width:1010px;
 	background:#EBB0AB;
 	background:rgba(255, 99, 71, 0.9);
@@ -15,10 +15,10 @@ html, body {
 	z-index:10;
 	box-shadow: 0 2px 5px #CCC;
 }
-#title ul li {
+.title ul li {
 	list-style:none;
 }
-#title li a {
+.title li a {
 	position: absolute;
 	height: 26px;
 	top: 10px;
@@ -39,7 +39,7 @@ html, body {
 #single-panel {
 	display:none;
 }
-#title #single-panel li a {
+.title #single-panel li a {
 	padding: 2px 10px 0 10px;
 	display: block;
 	width: auto;
@@ -82,17 +82,24 @@ html, body {
 	display:inline;
 }
 #save-to-gist {
+	display:none;
 	width: 115px;
 	right:30px;
+}
+.gist-saveable #save-to-gist {
+	display: block;
 }
 #download {
 	width:100px;
 	right:170px;
 }
-#title ul li a#view-gist {
+#view-gist {
 	width: 115px;
 	display:none;
 	right:30px;
+}
+.gist-viewable #view-gist {
+	display:block;
 }
 #edit {
 	min-width:1010px;
@@ -163,9 +170,9 @@ iframe {
 }
 
 @media screen and (max-width:1010px) {
-	#title #download {display: none;}
+	.title #download {display: none;}
 
-	#title, #edit {
+	.title, #edit {
 		min-width:0;
 	}
 	#by {
@@ -180,7 +187,7 @@ iframe {
 		bottom:0;
 		border-bottom:1px solid #999;
 	}
-	#title ul li a#show-other {
+	.title ul li a#show-other {
 		display:none;
 	}
 	#single-panel {
@@ -203,11 +210,11 @@ iframe {
 	#css-toggle {margin-left:-110px;}
 	#html-toggle {margin-left:-46px;}
 	#map-toggle {margin-left:27px;}
-	#save-to-gist, #view-gist {right:10px};
+	#save-to-gist, #view-gist {right:10px;}
 
 }
 @media screen and (max-width:480px) {
-	#title li a#save-to-gist, #title li a#view-gist {display: none;}
+	.gist-saveable #save-to-gist, .gist-viewable #view-gist {display: none;}
 	#js-toggle {margin-left:-110px;}
 	#css-toggle {margin-left:-60px;}
 	#html-toggle {margin-left:4px;}
