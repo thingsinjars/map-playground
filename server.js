@@ -64,9 +64,9 @@ app.post('/download', function(req, res) {
 
   //Get the data out of the request
   var data = {
-    "html": req.body.html,
-    "js": req.body.js,
-    "css": req.body.css
+    "html": req.body.html.replace(/\\n/g,'\n'),
+    "js": req.body.js.replace(/\\n/g,'\n'),
+    "css": req.body.css.replace(/\\n/g,'\n')
   };
 
   downloadMap(req, res, data);
