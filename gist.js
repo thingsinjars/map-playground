@@ -15,7 +15,7 @@ Gist.getMap = function(id, fn) {
   }
 
   // Set up the request
-  request.get({url:options.url+options.path+'/' + id, qs: options.qs}, function(e, r, chunk){
+  request.get({url:options.url+options.path+'/' + id, qs: options.qs, headers: {"user-agent": "github/thingsinjars/map-playground"}}, function(e, r, chunk){
     var i;
         if (e) {
           return fn(e);
@@ -94,7 +94,7 @@ Gist.setMap = function(params, fn) {
     };
   }
 
-  request({url:options.url+options.path, method: "POST", qs: options.qs, json:true, body:post_data}, function(e, r, chunk) {
+  request({url:options.url+options.path, method: "POST", qs: options.qs, headers: {"user-agent": "github/thingsinjars/map-playground"}, json:true, body:post_data}, function(e, r, chunk) {
     if(chunk) {
       fn(null, chunk.id);
     } else {
