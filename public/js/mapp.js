@@ -78,7 +78,7 @@ function insertHtml() {
 	if(/\/\d+/.test(window.location.pathname)) {
 		$('body').addClass('gist-viewable');
 		$('body').removeClass('gist-saveable');
-		$('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/\d+/));
+		$('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/[0-9a-f]+/));
 		// $('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/\d+/)).show();
 		// $('#save-to-gist').hide();
 	}
