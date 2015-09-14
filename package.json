@@ -7,7 +7,7 @@
     "email": "simon@thingsinjars.com",
     "url": "http://thingsinjars.com/"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "body-parser": "^1.13.3",
