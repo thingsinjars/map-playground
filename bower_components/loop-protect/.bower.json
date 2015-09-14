@@ -1,0 +1,36 @@
+{
+  "name": "loop-protect",
+  "main": "loop-protect.js",
+  "version": "0.9.0",
+  "homepage": "https://github.com/nathanhammond/loop-protect",
+  "authors": [
+    "Remy Sharp <remy@remysharp.com>",
+    "Tom Ashworth <tgvashworth@gmail.com>"
+  ],
+  "description": "Prevent infinite loops in dynamically eval'd JavaScript.",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "loop",
+    "jsbin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "_release": "0.9.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.9.0",
+    "commit": "c6cb176a16da9a06b08399e37b71653bc2455a92"
+  },
+  "_source": "git://github.com/jsbin/loop-protect.git",
+  "_target": "~0.9.0",
+  "_originalSource": "loop-protect",
+  "_direct": true
+}

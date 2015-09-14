@@ -10,7 +10,8 @@
 // Pull in modules
 var express = require('express'),
     fs = require('fs'),
-    gist = require('./gist');
+    gist = require('./gist'),
+    bodyParser = require('body-parser');    
 
 // Create server
 var app = express();
@@ -19,12 +20,14 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 // ...and for post method parsing
-app.use(express.bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // The URL requested contains a path
 app.get('/:key?', function(req, res) {
   // If the path is just numbers, it's probably a Gist
-  if(/\d+/.test(req.params.key)) {
+  if(/[0-9a-f]+/.test(req.params.key)) {
 
     // Load the gist and render the template
     gist.getMap(req.params.key, function(err, data) {
@@ -74,7 +77,10 @@ app.post('/download', function(req, res) {
 });
 
 // Start the app listening
-app.listen(3000);
+var port = process.env.PORT || 3000;
+app.listen(process.env.PORT || 3000, function() {
+  console.log("jHERE Playground started on port: " + port);
+});
 
 // Load the default files from the local file system
 function loadDefault(req, res, callback) {

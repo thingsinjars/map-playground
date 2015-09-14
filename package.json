@@ -1,10 +1,18 @@
 {
-  "name": "mapp",
-  "description": "mapp",
+  "name": "jhere-playground",
+  "description": "Interactive playground for making map visualisations with jHERE",
+  "main": "server.js",
+  "author": {
+    "name": "Simon Madine",
+    "email": "simon@thingsinjars.com",
+    "url": "http://thingsinjars.com/"
+  },
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.13.3",
     "express": "3.x",
+    "loop-protect": "^0.9.0",
     "request": "2.12.x"
   }
 }
