@@ -80,13 +80,21 @@ function insertHtml() {
     MAPP.styleTag.text(MAPP.editors.css.getTextArea().value);
 }
 
+function getBaseUrl() {
+    return window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+}
+
+function getGistId() {
+    return window.location.href.replace(getBaseUrl() + "/", '');
+}
+
 // Initialise the page.
 (function() {
     updateTextAreas();
     timedRefresh();
 
     // If we're showing an unmodified gist on load, show the 'View' button
-    if (/^\/[a-fA-F0-9]+$/.test(window.location.pathname)) {
+    if (/^[a-fA-F0-9]+$/.test(getGistId())) {
         $('body').addClass('gist-viewable');
         $('body').removeClass('gist-saveable');
         $('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/[0-9a-f]+/));
@@ -102,8 +110,8 @@ $('#show-other').on('click', function(e) {
 // Toggle visibility of the embed card
 $('#embed').on('click', function(e) {
     e.preventDefault();
-    if($('body').hasClass('gist-viewable')) {
-        $('#embedcopy textarea').text('<iframe src="'+window.location.href+'" width="100%" height="100%">')
+    if ($('body').hasClass('gist-viewable')) {
+        $('#embedcopy textarea').text('<iframe src="' + getBaseUrl() + "/embed/" + getGistId() + '" width="100%" height="100%">')
     } else {
         $('#embedcopy textarea').text('The map must be saved before it can be embedded')
     }
@@ -121,8 +129,8 @@ $('#save-to-gist').on('click', function(e) {
         "js": MAPP.editors.javascript.getTextArea().value,
         "css": MAPP.editors.css.getTextArea().value
     };
-    $.post("/save", data, function(data, textStatus) {
-        window.location = '/' + data.id;
+    $.post("save", data, function(data, textStatus) {
+        window.location.href = getBaseUrl() + '/' + data.id;
     });
 });
 
