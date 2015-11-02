@@ -89,6 +89,10 @@ html, body {
 .gist-saveable #save-to-gist {
 	display: block;
 }
+#embed {
+	width:100px;
+	right:270px;
+}
 #download {
 	width:100px;
 	right:170px;
