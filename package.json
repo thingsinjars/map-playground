@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "repository": "https://github.com/thingsinjars/map-playground.git",
   "port": 3000,
+  "license": "MIT",
   "scripts": {
     "test": "lab -t 100 -T node_modules/lab-babel test",
     "prepublish": "gulp build",
