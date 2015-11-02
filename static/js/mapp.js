@@ -9,7 +9,7 @@ loopProtect.hit = function(line) {
 
 
 // Initialise CodeMirror on each of the textareas
-$('textarea').each(function() {
+$('#js-area, #html-area, #css-area').each(function() {
     var mode = $(this).attr('lang');
     MAPP.editors[mode] = CodeMirror.fromTextArea(this, {
         theme: 'jhere',
@@ -17,6 +17,7 @@ $('textarea').each(function() {
         onChange: function() {
             updateTextAreas();
             $('body').removeClass('gist-viewable');
+            $('body').removeClass('show-embed');
             $('body').addClass('gist-saveable');
             timedRefresh();
         }
@@ -85,7 +86,7 @@ function insertHtml() {
     timedRefresh();
 
     // If we're showing an unmodified gist on load, show the 'View' button
-    if (/\/\d+/.test(window.location.pathname)) {
+    if (/^\/[a-fA-F0-9]+$/.test(window.location.pathname)) {
         $('body').addClass('gist-viewable');
         $('body').removeClass('gist-saveable');
         $('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/[0-9a-f]+/));
@@ -96,6 +97,17 @@ function insertHtml() {
 $('#show-other').on('click', function(e) {
     e.preventDefault();
     $('body').toggleClass('show-other');
+});
+
+// Toggle visibility of the embed card
+$('#embed').on('click', function(e) {
+    e.preventDefault();
+    if($('body').hasClass('gist-viewable')) {
+        $('#embedcopy textarea').text('<iframe src="'+window.location.href+'" width="100%" height="100%">')
+    } else {
+        $('#embedcopy textarea').text('The map must be saved before it can be embedded')
+    }
+    $('body').toggleClass('show-embed');
 });
 
 // Send the content of the editors to the server to

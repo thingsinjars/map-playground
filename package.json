@@ -9,7 +9,8 @@
     "test": "lab -t 100 -T node_modules/lab-babel test",
     "prepublish": "gulp build",
     "lint": "jshint .",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "start": "node dist/server.js"
   },
   "keywords": [
     "hapijs",
