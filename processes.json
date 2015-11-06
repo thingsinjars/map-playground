@@ -1,0 +1,5 @@
+{
+    "name": "map-playground",
+    "cwd": ".",
+    "script": "./dist/server.js"
+}
