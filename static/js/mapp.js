@@ -97,7 +97,7 @@ function getGistId() {
     if (/^[a-fA-F0-9]+$/.test(getGistId())) {
         $('body').addClass('gist-viewable');
         $('body').removeClass('gist-saveable');
-        $('#view-gist').attr('href', 'https://gist.github.com/' + window.location.pathname.match(/[0-9a-f]+/));
+        $('#view-gist').attr('href', 'https://gist.github.com/' + getGistId());
     }
 })();
 
